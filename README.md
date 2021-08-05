@@ -1,5 +1,5 @@
-#Student Record System
-###localserver used
+# Student Record System
+### localserver used
 - XAMPP 
 
 ### Admin Credentials
@@ -7,7 +7,7 @@
 
 - password = 1111
 
-###Technology used
+### Technology used
 
 - Java Swing
 
