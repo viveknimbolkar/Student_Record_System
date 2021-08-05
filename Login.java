@@ -33,8 +33,11 @@ public class Login extends JFrame implements ActionListener {
         login_btn.setBounds(200,150,100,40);
         login_btn.addActionListener(this);
 
-        frame.add(username_label); frame.add(email); frame.add(password_label);frame.add(password);frame.add(login_btn);
-
+        frame.add(username_label);
+        frame.add(email);
+        frame.add(password_label);
+        frame.add(password);
+        frame.add(login_btn);
 
         frame.setSize(500,300);
         frame.setLocation(400,200);
@@ -47,16 +50,13 @@ public class Login extends JFrame implements ActionListener {
     public static void main(String[] args) {
         Login login = new Login();
         System.out.println(login.email);
-
     }
 
     //perform authentication on database
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-
         String useremail = email.getText();
         String userpassword = password.getText();
-
         //database connection operations
         try {
             //get the connection from the DBConnection class
@@ -69,19 +69,14 @@ public class Login extends JFrame implements ActionListener {
                 if (resultSet.next()){
                     //if email and password match
                     //System.out.println("email found "+resultSet.getString(2));
-
                     new Home();
                     frame.dispose();
-
                 }else {
                     JOptionPane.showMessageDialog(frame,"Incorrect email or password!");
                     email.setText("");
                     password.setText("");
-
                 }
-
             conn.close();
-
         }catch (Exception e){
             e.printStackTrace();
         }

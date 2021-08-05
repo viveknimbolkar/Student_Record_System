@@ -13,69 +13,55 @@ import java.util.Random;
 public class Home extends JFrame {
 
     JFrame homeFrame;
-
     JButton addStudentBtn, removeStudentBtn, updateStudentBtn, findStudentBtn;
 
     Home(){
 
         homeFrame = new JFrame("Student Record System");
-
         addStudentBtn = new JButton("Add Student");
-
         addStudentBtn.setFont(new Font("Arial",Font.BOLD,20));
-
         addStudentBtn.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 new AddStudent();
-
                 homeFrame.dispose();
             }
         });
 
         removeStudentBtn = new JButton("Remove Student");
-
         removeStudentBtn.setFont(new Font("Arial",Font.BOLD,20));
 
         //remove  student from database
         removeStudentBtn.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 new DeleteStudent();
-
                 homeFrame.dispose();
             }
         });
 
         //update existing student
         updateStudentBtn = new JButton("Update Student");
-
         updateStudentBtn.setFont(new Font("Arial",Font.BOLD,20));
 
         //update the record of the database
         updateStudentBtn.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 new UpdateStudent();
-
                 homeFrame.dispose();
             }
         });
 
         //find the student
         findStudentBtn = new JButton("Find Student");
-
         findStudentBtn.setFont(new Font("Arial",Font.BOLD,20));
 
         findStudentBtn.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                new FindStudent();
                homeFrame.dispose();
             }
@@ -101,18 +87,41 @@ class AddStudent extends JFrame{
 
     JFrame addStudentFrame;
 
-    JLabel lName, lEmail, lMobile, lAddress, lCity, lState, lDistrict,
-    lTaluka, lDob, lFee, lCategory, lCast;
+    JLabel  lName,
+            lEmail,
+            lMobile,
+            lAddress,
+            lCity,
+            lState,
+            lDistrict,
+            lTaluka,
+            lDob,
+            lFee,
+            lCategory,
+            lCast;
 
-    JTextField studentName, studentEmail, studentMobile, studentAddress, studentCity, studentState, studentDistrict,
-            studentId, studentDob, studentFee, studentCategory, studentCast;
+    JTextField
+            studentName,
+            studentEmail,
+            studentMobile,
+            studentAddress,
+            studentCity,
+            studentState,
+            studentDistrict,
+            studentId,
+            studentDob,
+            studentFee,
+            studentCategory,
+            studentCast;
 
-    JButton submit, reset, returnToMainMenu;
+    JButton
+            submit,
+            reset,
+            returnToMainMenu;
 
     AddStudent(){
 
         addStudentFrame = new JFrame("Add Student");
-
 
         lName = new JLabel("Fullname: ");
         lName.setBounds(50,30,100,30);
@@ -179,7 +188,6 @@ class AddStudent extends JFrame{
         Random random = new Random();
 
         int randomNumber = random.nextInt(100000);
-
         String studentUniqueId = Integer.toString(randomNumber);
 
         studentId.setText(studentUniqueId);
@@ -203,8 +211,6 @@ class AddStudent extends JFrame{
 
         submit.addActionListener(new ActionListener() {
             @Override
-
-
             public void actionPerformed(ActionEvent actionEvent) {
                 //submit the student data to the database
 
@@ -225,13 +231,11 @@ class AddStudent extends JFrame{
 
                 //get today's date
                 LocalDate date = LocalDate.now();
-
                 String temp_date = date.toString();
 
                 try {
 
                     Connection con = DBConnection.getDBConnection();
-
                     String query = "INSERT INTO `student_data` (`student_name`, `email_address`, `mobile_no`, " +
                             "`address`, `city`, `student_id`, `disctict`, `state`, `cast`, `category`, `dob`, `fee`," +
                             "`time`) " +
@@ -257,16 +261,12 @@ class AddStudent extends JFrame{
                     int sendData = preStmt.executeUpdate();
 
                     if (sendData>0){
-
                         JOptionPane.showMessageDialog(addStudentFrame,"Student Added Successfuly!");
-
                     }else{
-
                         JOptionPane.showMessageDialog(addStudentFrame,"Failed to add student. Try Again!");
                     }
 
                 }catch (Exception ae){
-
                     ae.printStackTrace();
                 }
             }
@@ -276,10 +276,8 @@ class AddStudent extends JFrame{
         reset.setBounds(300,420,200,30);
 
         reset.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 //reset all the fields
                 studentName.setText("");
                 studentAddress.setText("");
@@ -301,13 +299,10 @@ class AddStudent extends JFrame{
         returnToMainMenu.setBounds(550,420,200,30);
 
         returnToMainMenu.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 //return to the admin panel frame
                 new Home();
-
                 addStudentFrame.dispose();
             }
         });
@@ -383,19 +378,13 @@ class DeleteStudent extends JFrame{
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 try {
                     //delete the student from the database
                     Connection conn = DBConnection.getDBConnection();
-
                     String query = "DELETE FROM `student_data` WHERE student_id=?";
-
                     PreparedStatement prepStmt = conn.prepareStatement(query);
-
                     prepStmt.setString(1,enterStudentId.getText());
-
                     int result = prepStmt.executeUpdate();
-
                     conn.close();
 
                     if (result > 0){
@@ -403,22 +392,18 @@ class DeleteStudent extends JFrame{
                     }else {
                         JOptionPane.showMessageDialog(deleteStudent,"Something Went Wrong! Try Again");
                     }
-
                 }catch (Exception ex){
-
                     ex.printStackTrace();
                 }
             }
         });
 
         resetId = new JButton("Reset");
-
         resetId.setBounds(50,150,200,40);
 
         resetId.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 //reset the id field
                 enterStudentId.setText("");
             }
@@ -428,18 +413,19 @@ class DeleteStudent extends JFrame{
         returnBack.setBounds(50,200,200,40);
 
         returnBack.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 //return to the admin panel frame
                 new Home();
                 deleteStudentFrame.dispose();
             }
         });
 
-        deleteStudentFrame.add(enterStudentId);deleteStudentFrame.add(deleteStudent);
-        deleteStudentFrame.add(resetId);deleteStudentFrame.add(returnBack);deleteStudentFrame.add(lenterId);
+        deleteStudentFrame.add(enterStudentId);
+        deleteStudentFrame.add(deleteStudent);
+        deleteStudentFrame.add(resetId);
+        deleteStudentFrame.add(returnBack);
+        deleteStudentFrame.add(lenterId);
 
         //default operations
         deleteStudentFrame.setSize(300,300);
@@ -455,11 +441,34 @@ class UpdateStudent {
 
     JFrame updateStudentFrame;
 
-    JLabel lName, lEmail, lMobile, lAddress, lCity, lState, lDistrict,
-            lTaluka, lDob, lFee, lCategory, lCast,lenterId;
+    JLabel lName,
+            lEmail,
+            lMobile,
+            lAddress,
+            lCity,
+            lState,
+            lDistrict,
+            lTaluka,
+            lDob,
+            lFee,
+            lCategory,
+            lCast,
 
-    JTextField studentName, studentEmail, studentMobile, studentAddress, studentCity, studentState, studentDistrict,
-            studentId, studentDob, studentFee, studentCategory, studentCast,enterId;
+    lenterId;
+
+    JTextField studentName,
+            studentEmail,
+            studentMobile,
+            studentAddress,
+            studentCity,
+            studentState,
+            studentDistrict,
+            studentId,
+            studentDob,
+            studentFee,
+            studentCategory,
+            studentCast,
+            enterId;
 
     JButton update, returnToMainMenu, findStudent;
 
@@ -555,24 +564,16 @@ class UpdateStudent {
         findStudent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 //get the student id and set to the respective fields
                 String stuId = enterId.getText();
-
                 try {
-
                     Connection con = DBConnection.getDBConnection();
-
                     Statement stmt = con.createStatement();
-
                     String query = "SELECT * FROM `student_data` WHERE student_id='"+stuId+"'";
-
                     ResultSet resultSet = stmt.executeQuery(query);
 
                     while (resultSet.next()){
-
                         //fetch the values and set to the respective texifield
-
                         studentName.setText(resultSet.getString(2));
                         studentEmail.setText(resultSet.getString(3));
                         studentMobile.setText(resultSet.getString(4));
@@ -586,11 +587,8 @@ class UpdateStudent {
                         studentDob.setText(resultSet.getString(12));
                         studentFee.setText(resultSet.getString(13));
                     }
-
                     con.close();
-
                 }catch (Exception ex){
-
                     ex.printStackTrace();
                 }
             }
@@ -601,16 +599,11 @@ class UpdateStudent {
         update.setBounds(160,480,200,30);
 
         update.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 //send the updated data to the database
-
                 try {
-
                     Connection con = DBConnection.getDBConnection();
-
                     String query = "UPDATE `student_data` SET student_name=?, email_address=?, mobile_no=?, " +
                             "address=?, city=?, disctict=?, state=?, cast=?, category=?, dob=?, fee=? WHERE " +
                             "student_id=?";
@@ -633,16 +626,12 @@ class UpdateStudent {
                     int result = prepStmt.executeUpdate();
 
                     if (result > 0) {
-
                         JOptionPane.showMessageDialog(updateStudentFrame,"Student Updated Successfully");
-
                     }else {
                         JOptionPane.showMessageDialog(updateStudentFrame,"Something Went Wrong. Please Try Again!");
                     }
                     con.close();
-
                 }catch (Exception ex){
-
                     ex.printStackTrace();
                 }
 
@@ -654,10 +643,8 @@ class UpdateStudent {
         returnToMainMenu.setBounds(480,480,200,30);
 
         returnToMainMenu.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 new Home();
                 updateStudentFrame.dispose();
             }
@@ -732,23 +719,15 @@ class FindStudent{
 
         table.setBounds(10,50,500,500);
 
-
         //get the student id and search for the database
         try {
-
             String stuId = enterStudentID.getText();
-
             Connection con = DBConnection.getDBConnection();
-
             Statement stmt = con.createStatement();
-
             String sql = "SELECT * FROM `student_data` WHERE student_id='"+stuId+"'";
-
             ResultSet resultSet = stmt.executeQuery(sql);
 
-
             while (resultSet.next()){
-
                 //set the data to the array
                 String data[][] = {
                     {"Student Name", resultSet.getString(2)},
@@ -765,17 +744,11 @@ class FindStudent{
                     {"Fees", resultSet.getString(13)},
                     {"Admission Date",resultSet.getString(14)}
                 };
-
-
             }
-
             con.close();
-
         }catch (Exception ee){
-
             ee.printStackTrace();
         }
-
 
         findStudentFrame.add(lenterID);
         findStudentFrame.add(enterStudentID);
@@ -789,17 +762,3 @@ class FindStudent{
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
