@@ -1,4 +1,9 @@
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JOptionPane;
+import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -9,7 +14,7 @@ public class Login extends JFrame implements ActionListener {
 
     JFrame frame;
     JTextField email;
-    JLabel username_label, password_label;
+    JLabel username_label, password_label, vivek_nimbolkar;
     JPasswordField password;
     JButton login_btn;
 
@@ -49,7 +54,7 @@ public class Login extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         Login login = new Login();
-        System.out.println(login.email);
+        String me = "vivek nimbolkar";
     }
 
     //perform authentication on database
@@ -57,6 +62,11 @@ public class Login extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         String useremail = email.getText();
         String userpassword = password.getText();
+
+        if (useremail.isEmpty() || userpassword.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Username or password should not be empty!");
+            return;
+        }
         //database connection operations
         try {
             //get the connection from the DBConnection class

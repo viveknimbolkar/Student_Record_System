@@ -267,7 +267,7 @@ class AddStudent extends JFrame{
                     }
 
                 }catch (Exception ae){
-                    ae.printStackTrace();
+                    JOptionPane.showMessageDialog(addStudentFrame,"Internal Server Error! Please try again later.");
                 }
             }
         });
@@ -360,7 +360,7 @@ class DeleteStudent extends JFrame{
     JFrame deleteStudentFrame;
     JLabel lenterId;
     JTextField enterStudentId;
-    JButton deleteStudent, returnBack, resetId;
+    JButton deleteStudent, vivekNimbolkar, returnBack, resetId;
 
     DeleteStudent(){
         deleteStudentFrame = new JFrame("Remove Student");
